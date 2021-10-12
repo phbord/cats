@@ -4,8 +4,9 @@ import Cookies from 'js-cookie';
 
 import HeaderComponent from 'components/HeaderComponent';
 import Home from 'pages/Home';
-import Score from 'pages/Score';
+import Score from 'pages/Scores';
 import MainContext from 'contexts/MainContext';
+import FooterComponent from 'components/FooterComponent';
 
 function App() {
   return (
@@ -16,10 +17,11 @@ function App() {
           <Route exact path="/">
             <Home/>
           </Route>
-          <Route exact path="/score">
+          <Route exact path="/scores">
             <Score/>
           </Route>
         </Switch>
+        <FooterComponent/>
       </MainContext.Provider>
     </Router>
   );
