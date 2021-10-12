@@ -27,5 +27,6 @@ export const GlobalStyles = createGlobalStyle`
 
   .container {
     min-height: calc(100vh - ${(props) => props.theme.heights.footerHeight});
+    padding: calc(50px + ${(props) => props.theme.heights.headerHeight}) 0 calc(20px + ${(props) => props.theme.heights.footerHeight});
   }
 `;
