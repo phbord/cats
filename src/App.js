@@ -2,11 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Cookies from 'js-cookie';
 
+import MainContext from 'contexts/MainContext';
 import HeaderComponent from 'components/HeaderComponent';
+import FooterComponent from 'components/FooterComponent';
 import Home from 'pages/Home';
 import Score from 'pages/Scores';
-import MainContext from 'contexts/MainContext';
-import FooterComponent from 'components/FooterComponent';
 
 function App() {
   return (

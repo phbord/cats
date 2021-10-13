@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import LogoSvgComponent from './LogoSvgComponent';
 
@@ -47,6 +47,22 @@ const HeaderStyles = styled.header`
         margin-right: 10px;
         font-weight: 600;
       }
+      &.selected {
+        position: relative;
+        display: flex;
+        justify-content: center;
+
+        &:before {
+          position: absolute;
+          top: -22px;
+          content: '';
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 15px 15px 0 15px;
+          border-color: ${(props) => props.theme.colors.darkGray} transparent transparent transparent;
+        }
+      }
     }
   }
 `;
@@ -63,10 +79,11 @@ const HeaderComponent = () => {
       <nav>
         <ul className='nav-list'>
           <li>
-            <Link to="/">Accueil</Link>
+            <NavLink to="/">Accueil</NavLink>
           </li>
           <li>
-            <Link to="/scores">Scores</Link>
+            <NavLink activeClassName="selected" 
+                     to="/scores">Scores</NavLink>
           </li>
         </ul>
       </nav>

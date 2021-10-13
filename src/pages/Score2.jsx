@@ -5,7 +5,7 @@ const ScoresStyles = styled.section`
 
 `;
 
-const Scores = () => {
+const Scores2 = () => {
   return (
     <ScoresStyles className='container'>
       Scores
@@ -13,4 +13,4 @@ const Scores = () => {
   );
 };
 
-export default Scores;
+export default Scores2;
