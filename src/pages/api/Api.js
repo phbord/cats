@@ -33,10 +33,42 @@ export async function fetchAPI() {
   const res = await fetch(url, config).catch(err => err);
   const data = await res.json();
 
-  return {data};
+  return { data };
 
 
   // JSON file
   // const images = await data.images;
   // return images;
+}
+
+export async function findOneId(id) {
+  // STRAPI
+  const url = "http://localhost:1337/images";
+  const config = {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  };
+
+  const res = await fetch(url, config).catch(err => err);
+  const data = await res.json();
+  const getId = data.filter(x => (x["id"]) == id);
+  console.log('DATA ===> ',getId[0]);
+
+  return { getId: getId[0] };
+}
+
+export async function modifyOneScore(id) {
+  // STRAPI
+  const url = "http://localhost:1337/images";
+  const creds = {};
+  const config = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(creds)
+  };
 }

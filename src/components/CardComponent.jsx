@@ -54,11 +54,16 @@ const CardComponent = ({image}) => {
 
   return (
     <CardStyles>
-      <ButtonComponent className='btn-card' 
-                       onClick={handleClick}></ButtonComponent>
+      {
+        !Cookies.get('pseudo') && 
+        <ButtonComponent className='btn-card' onClick={handleClick}></ButtonComponent>
+      }
       <img src={image.url} 
            alt={image.id} />
-      <figcaption className='figcaption-card'>Sélectionner</figcaption>
+      {
+        !Cookies.get('pseudo') && 
+        <figcaption className='figcaption-card'>Sélectionner</figcaption>
+      }
     </CardStyles>
   );
 };

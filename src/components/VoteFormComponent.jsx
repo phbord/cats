@@ -3,14 +3,14 @@ import Cookies from 'js-cookie';
 import anime from "animejs";
 import styled from "styled-components";
 
+import { findOneId, modifyOneScore } from '../pages/api/Api';
 import ButtonComponent from './ButtonComponent';
 
 const VoteFormStyles = styled.div`
   position: fixed;
-  left: 50%;
-  bottom: 70px;
+  left: calc(50% - 20px - (${(props) => props.theme.widths.voteCircleSize}/2));
+  bottom: -${(props) => props.theme.widths.voteCircleSize};
   z-index: 20;
-  transform: translateX(-50%);
 
   .vote-body {
     width: ${(props) => props.theme.widths.voteCircleSize};
@@ -66,30 +66,60 @@ const VoteFormStyles = styled.div`
 
 export default function VoteFormComponent() {
   const inputEl = useRef(null);
-  
-  const handleClick = () => {
-  };
+  const [idCookie, setIdCookie] = useState(Cookies.get('isCatsSelected'));
+  const [data, setData] = useState({});
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    animeUpVoteForm();
+  }, []);
+
+  useEffect(async () => {
+    setData(Object.values((await findOneId(idCookie)))[0]);
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!Cookies.get('pseudo')) {
+    if (!Cookies.get('pseudo') && idCookie) {
       const inputVal = inputEl.current.value;
       Cookies.set('pseudo', inputVal);
-    }
-    const toto = JSON.stringify({tata: "titi"});
-    // fs.writeFile('../data/data.json', toto, err => {
-    //   if (err) {
-    //       console.log('Error writing file', err)
-    //   } else {
-    //       console.log('Successfully wrote file')
-    //   }});
 
+      console.log('handleSubmit() > data <<<<',await data);
+      animeDownVoteForm();
+    }
     console.log('pseudo => ', Cookies.get('pseudo'));
   };
 
+  const animeUpVoteForm = () => {
+    if (!Cookies.get('pseudo')) {
+      const targets = document.getElementById("vote-form");
+
+      anime({
+        targets,
+        translateY: (-240 - 70),
+        opacity: [0, 1],
+        duration: 400,
+        delay: 1500,
+        easing: "easeOutQuad"
+      });
+    }
+  };
+
+  const animeDownVoteForm = () => {
+    const targets = document.getElementById("vote-form");
+
+    anime({
+      targets,
+      translateY: (240 + 70),
+      opacity: [1, 0],
+      duration: 400,
+      delay: 400,
+      easing: "easeOutQuad"
+    });
+  };
+
   return (
-    <VoteFormStyles>
+    <VoteFormStyles id="vote-form">
       <div className="vote-body">
         <p className="vote-text">Confirmer<br/>votre sélection</p>
         <form action="post" onSubmit={handleSubmit}>
@@ -98,10 +128,9 @@ export default function VoteFormComponent() {
             <input ref={inputEl} type="text" id='pseudo' />
           </div>
           <ButtonComponent type="submit" 
-                            className="btn-vote-confirmed" 
-                            onClick={handleClick}>OK</ButtonComponent>
+                            className="btn-vote-confirmed">OK</ButtonComponent>
         </form>
       </div>
     </VoteFormStyles>
   )
-}
+};
