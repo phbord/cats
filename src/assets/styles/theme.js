@@ -6,15 +6,18 @@ export default {
     dark: "#000",
     light: "#fff",
     darkGray: '#706F6F',
+    pink: "#DB8AA9",
     bodyColor: "#FFF7F7",
     headerColor: "#fffdfc",
   },
   breakpoints: {
-    mobileMaxWidth: "575px",
-    tabletMinWidth: "576px",
-    desktopMinWidth: "768px"
+    xsMaxWidth: "47em",
+    smMinWidth: "48em",
+    mdMinWidth: "64em",
+    lgMinWidth: "75em"
   },
   widths: {
+    voteCircleSize: "240px",
   },
   heights: {
     headerHeight: "60px",
@@ -25,6 +28,7 @@ export default {
   },
   margins: {
     containerMarginX: "20px",
+    spaceMarginY: "15px"
   },
   paddings: {
   },

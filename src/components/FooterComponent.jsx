@@ -23,7 +23,7 @@ const FooterStyles = styled.footer`
 const FooterComponent = () => {
   return (
     <FooterStyles>
-      <Link to="./assets/pdf/exercice-technique.pdf">
+      <Link to="./pdf/exercice-technique.pdf" target="_blank">
         <span>Voir le cahier des charges</span>
       </Link>
     </FooterStyles>

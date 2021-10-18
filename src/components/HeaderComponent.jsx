@@ -8,6 +8,7 @@ const HeaderStyles = styled.header`
   top: 0;
   left: 0;
   right: 0;
+  z-index: 100;
   height: ${(props) => props.theme.heights.headerHeight};
   padding: 5px ${(props) => props.theme.margins.containerMarginX};
   justify-content: space-between;
