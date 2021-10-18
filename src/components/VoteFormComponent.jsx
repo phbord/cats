@@ -45,12 +45,11 @@ const VoteFormStyles = styled.div`
     font-weight: 500;
     cursor: pointer;
 
-    &:hover {
+    &:hover,&[disabled] {
       opacity: .75;
     }
-    &[disabled],&[disabled]:hover {
+    &[disabled] {
       background-color: ${(props) => props.theme.colors.darkGray};
-      opacity: 1;
       cursor: auto;
     }
   }
@@ -83,14 +82,16 @@ export default function VoteFormComponent() {
     setData(Object.values((await findOneId(idCookie)))[0]);
   }, [disabled]);
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!Cookies.get('pseudo') && idCookie) {
       const inputVal = inputEl.current.value;
-      Cookies.set('pseudo', inputVal);
+      //Cookies.set('pseudo', inputVal);
 
-      console.log('handleSubmit() > data <<<<',await data);
+      const newScore = Number(await data.score) + 1;
+      console.log('handleSubmit() > data <<<<', newScore);
       animeDownVoteForm();
     }
   };
@@ -124,16 +125,15 @@ export default function VoteFormComponent() {
   };
 
   const handleChange = () => {
-    let inputSize = inputEl.current.value.length;
+    const inputSize = inputEl.current.value.length;
 
     if (inputSize > 1) {
       setDisabled(false);
-      console.log(inputSize, 'if disabled: ',disabled);
     } else if (inputSize <= 1 || !inputSize) {
       setDisabled(true);
-      console.log(inputSize, 'else disabled: ',disabled);
     }
   };
+
 
   return (
     <VoteFormStyles id="vote-form">

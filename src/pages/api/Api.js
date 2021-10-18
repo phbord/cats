@@ -55,7 +55,7 @@ export async function findOneId(id) {
   const res = await fetch(url, config).catch(err => err);
   const data = await res.json();
   const getId = data.filter(x => (x["id"]) == id);
-  console.log('DATA ===> ',getId[0]);
+  //console.log('DATA ===> ',getId[0]);
 
   return { getId: getId[0] };
 }
