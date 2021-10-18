@@ -48,6 +48,11 @@ const VoteFormStyles = styled.div`
     &:hover {
       opacity: .75;
     }
+    &[disabled],&[disabled]:hover {
+      background-color: ${(props) => props.theme.colors.darkGray};
+      opacity: 1;
+      cursor: auto;
+    }
   }
 
   input {
@@ -68,6 +73,7 @@ export default function VoteFormComponent() {
   const inputEl = useRef(null);
   const [idCookie, setIdCookie] = useState(Cookies.get('isCatsSelected'));
   const [data, setData] = useState({});
+  const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
     animeUpVoteForm();
@@ -75,7 +81,7 @@ export default function VoteFormComponent() {
 
   useEffect(async () => {
     setData(Object.values((await findOneId(idCookie)))[0]);
-  }, []);
+  }, [disabled]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -87,7 +93,6 @@ export default function VoteFormComponent() {
       console.log('handleSubmit() > data <<<<',await data);
       animeDownVoteForm();
     }
-    console.log('pseudo => ', Cookies.get('pseudo'));
   };
 
   const animeUpVoteForm = () => {
@@ -118,6 +123,18 @@ export default function VoteFormComponent() {
     });
   };
 
+  const handleChange = () => {
+    let inputSize = inputEl.current.value.length;
+
+    if (inputSize > 1) {
+      setDisabled(false);
+      console.log(inputSize, 'if disabled: ',disabled);
+    } else if (inputSize <= 1 || !inputSize) {
+      setDisabled(true);
+      console.log(inputSize, 'else disabled: ',disabled);
+    }
+  };
+
   return (
     <VoteFormStyles id="vote-form">
       <div className="vote-body">
@@ -125,10 +142,11 @@ export default function VoteFormComponent() {
         <form action="post" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="pseudo">Saisir votre pseudo</label>
-            <input ref={inputEl} type="text" id='pseudo' />
+            <input ref={inputEl} type="text" id='pseudo' onChange={handleChange} />
           </div>
           <ButtonComponent type="submit" 
-                            className="btn-vote-confirmed">OK</ButtonComponent>
+                            className="btn-vote-confirmed" 
+                            disabled={disabled}>OK</ButtonComponent>
         </form>
       </div>
     </VoteFormStyles>
