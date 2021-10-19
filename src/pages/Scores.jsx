@@ -21,21 +21,40 @@ const ScoresStyles = styled.section`
       align-items: center;
     }
 
-    img {
+    span {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    figure {
+      margin: .5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .img-content {
       width: 100px;
       height: 100px;
       margin-bottom: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       border: 3px solid ${(props) => props.theme.colors.pink};
       border-radius: 50%;
+      background-color: ${(props) => props.theme.colors.dark};
+      overflow: hidden;
     }
 
-    span {
-      margin-bottom: 5px;
+    img {
+      max-width: 100px;
+      max-height: 100px;
     }
 
-    strong {
+    figcaption {
       color: ${(props) => props.theme.colors.pink};
       font-size: 1.5rem;
+      font-weight: 500;
     }
   }
 `;
@@ -57,9 +76,13 @@ const Scores = () => {
           images && images.data.sort((a, b) => Number(b.score) - Number(a.score)).map((image, index) => (
             <li key={uuid_v4()}>
               <span>n°{++index}</span>
-              <img src={image.url} 
-                    alt={image.id} />
-              <strong>{image.score}</strong>
+              <figure>
+                <div className="img-content">
+                  <img src={image.url} 
+                        alt={image.id} />
+                </div>
+                <figcaption>{image.score} pts</figcaption>
+              </figure>
             </li>
           ))
         }
