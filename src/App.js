@@ -1,10 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getDatabase } from "firebase/database";
-
 import MainContext from 'contexts/MainContext';
 import HeaderComponent from 'components/HeaderComponent';
 import FooterComponent from 'components/FooterComponent';
