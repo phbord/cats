@@ -88,11 +88,9 @@ export default function VoteFormComponent() {
 
     if (!Cookies.get('pseudo') && idCookie) {
       const inputVal = inputEl.current.value;
-      //Cookies.set('pseudo', inputVal);
-
       const newScore = Number(await data.score) + 1;
-      console.log('handleSubmit() > data <<<<', newScore);
-      animeDownVoteForm();
+
+      modifyOneScore(idCookie, newScore);
     }
   };
 

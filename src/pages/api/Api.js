@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
-import fs from 'fs';
+import React from 'react';
+import Cookies from 'js-cookie';
+import anime from "animejs";
 
 import data from '../../data/data.json';
 
@@ -43,32 +44,54 @@ export async function fetchAPI() {
 
 export async function findOneId(id) {
   // STRAPI
-  const url = "http://localhost:1337/images";
+  const url = `http://localhost:1337/images/${id}`;
   const config = {
     method: "GET",
     headers: {
-      Accept: "application/json",
       "Content-Type": "application/json",
     },
   };
 
   const res = await fetch(url, config).catch(err => err);
   const data = await res.json();
-  const getId = data.filter(x => (x["id"]) == id);
-  //console.log('DATA ===> ',getId[0]);
 
-  return { getId: getId[0] };
+  return { data };
 }
 
-export async function modifyOneScore(id) {
+export async function modifyOneScore(id, score) {
+  const animeDownVoteForm = () => {
+    const targets = document.getElementById("vote-form");
+
+    anime({
+      targets,
+      translateY: (240 + 70),
+      opacity: [1, 0],
+      duration: 400,
+      delay: 400,
+      easing: "easeOutQuad"
+    });
+  };
+
   // STRAPI
-  const url = "http://localhost:1337/images";
-  const creds = {};
+  const url = `http://localhost:1337/images/${id}`;
+  const creds = { score };
   const config = {
     method: "PUT",
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(creds)
   };
+
+  const res = await fetch(url, config).catch(err => err);
+
+  if (res instanceof Error) {
+    const error = await res.json();
+    const messages = `${[...Object.entries(error)]}`;
+    console.log('Erreurs : ', messages);
+  } else {
+    //Cookies.set('pseudo', inputVal);
+    animeDownVoteForm();
+  }
 }

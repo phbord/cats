@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 as uuid_v4 } from "uuid";
 import anime from "animejs";
 import styled from "styled-components";
