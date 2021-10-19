@@ -7,7 +7,6 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "animejs": "^3.2.1",
-    "firebase": "^9.1.2",
     "flexboxgrid": "^6.3.1",
     "js-cookie": "^3.0.1",
     "normalize.css": "^8.0.1",

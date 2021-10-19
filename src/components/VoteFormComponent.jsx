@@ -91,6 +91,8 @@ export default function VoteFormComponent() {
       const newScore = Number(await data.score) + 1;
 
       modifyOneScore(idCookie, newScore);
+      Cookies.set('pseudo', inputVal);
+      animeDownVoteForm();
     }
   };
 

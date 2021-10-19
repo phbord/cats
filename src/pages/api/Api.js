@@ -1,8 +1,6 @@
 import React from 'react';
-import Cookies from 'js-cookie';
-import anime from "animejs";
 
-import data from '../../data/data.json';
+//import data from '../../data/data.json';
 
 export async function fetchAPI() {
   // const url = "https://latelier.co/data/cats.json";
@@ -59,19 +57,6 @@ export async function findOneId(id) {
 }
 
 export async function modifyOneScore(id, score) {
-  const animeDownVoteForm = () => {
-    const targets = document.getElementById("vote-form");
-
-    anime({
-      targets,
-      translateY: (240 + 70),
-      opacity: [1, 0],
-      duration: 400,
-      delay: 400,
-      easing: "easeOutQuad"
-    });
-  };
-
   // STRAPI
   const url = `http://localhost:1337/images/${id}`;
   const creds = { score };
@@ -90,8 +75,5 @@ export async function modifyOneScore(id, score) {
     const error = await res.json();
     const messages = `${[...Object.entries(error)]}`;
     console.log('Erreurs : ', messages);
-  } else {
-    //Cookies.set('pseudo', inputVal);
-    animeDownVoteForm();
   }
 }
