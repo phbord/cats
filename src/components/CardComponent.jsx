@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React from 'react';
 import Cookies from 'js-cookie';
 import styled from "styled-components";
 import ButtonComponent from './ButtonComponent';

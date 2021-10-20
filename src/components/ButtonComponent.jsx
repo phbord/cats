@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 const ButtonComponent = ({type, className, onClick, disabled, children}) => {
   useEffect(() => {}, [disabled]);

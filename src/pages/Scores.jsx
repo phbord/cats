@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuid_v4 } from "uuid";
-import anime from "animejs";
 import styled from "styled-components";
 
 import { fetchAPI } from './api/Api';
@@ -61,7 +60,6 @@ const ScoresStyles = styled.section`
 
 const Scores = () => {
   const [images, setImages] = useState(null);
-  const [count, setCount] = useState(1);
 
   useEffect(async () => {
     setImages(await fetchAPI());
