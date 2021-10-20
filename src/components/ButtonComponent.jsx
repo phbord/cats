@@ -1,9 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 
 const ButtonComponent = ({type, className, onClick, disabled, children}) => {
-  useEffect(() => {
-
-  }, [disabled]);
+  useEffect(() => {}, [disabled]);
 
   return (
     <button type={type ? type : 'button'} 

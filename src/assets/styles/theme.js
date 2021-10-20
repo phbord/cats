@@ -6,6 +6,7 @@ export default {
     dark: "#000",
     light: "#fff",
     darkGray: '#706F6F',
+    lightGray: '#BDBBBB',
     pink: "#DB8AA9",
     bodyColor: "#FFF7F7",
     headerColor: "#fffdfc",
@@ -14,10 +15,13 @@ export default {
     xsMaxWidth: "47em",
     smMinWidth: "48em",
     mdMinWidth: "64em",
-    lgMinWidth: "75em"
+    lgMinWidth: "75em",
+    headerMaxWidth: "399px",
+    desktopMinWidth: "400px"
   },
   widths: {
     voteCircleSize: "240px",
+    btnMenuSize: "30px",
   },
   heights: {
     headerHeight: "60px",

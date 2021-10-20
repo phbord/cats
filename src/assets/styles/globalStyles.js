@@ -10,7 +10,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family: ${(props) => props.theme.fonts.bodyFont};
   }
 
-  a,button {
+  a,button,.nav-list {
     text-decoration: none;
     -webkit-transition: all ${(props) => props.theme.transitions.defaultTrans} ease;
     -moz-transition: all ${(props) => props.theme.transitions.defaultTrans} ease;

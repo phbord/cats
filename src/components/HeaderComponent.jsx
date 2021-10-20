@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
+import BurgerSvgComponent from './BurgerSvgComponent';
+import ButtonComponent from './ButtonComponent';
 import LogoSvgComponent from './LogoSvgComponent';
 
 const HeaderStyles = styled.header`
@@ -40,6 +42,10 @@ const HeaderStyles = styled.header`
     }
   }
 
+  .nav-menu {
+    position: relative;
+  }
+
   .nav-list {
     a {
       color: ${(props) => props.theme.colors.darkGray};
@@ -65,10 +71,76 @@ const HeaderStyles = styled.header`
         }
       }
     }
+
+    @media (max-width: ${(props) => props.theme.breakpoints.headerMaxWidth}) {
+      position: absolute;
+      bottom: -65px;
+      right: -100px;
+      padding: 7.5px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: ${(props) => props.theme.colors.lightGray};
+      opacity: 0;
+
+      &.opacity-1 {
+        right: 10px;
+        opacity: 1;
+      }
+
+      li {
+        margin-bottom: 7.5px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      a {
+        padding: 0 15px;
+        color: ${(props) => props.theme.colors.light};
+
+        &:first-child {
+          margin-right: 0;
+          font-weight: 400;
+        }
+        &.selected:before {
+          display: none;
+        }
+        &:hover {
+          background-color: ${(props) => props.theme.colors.pink};
+        }
+      }
+    }
+  }
+
+  .btn-menu {
+    width: ${(props) => props.theme.widths.btnMenuSize};
+    height: ${(props) => props.theme.widths.btnMenuSize};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: ${(props) => props.theme.colors.darkGray};
+    cursor: pointer;
+
+    &:hover {
+      opacity: .5;
+    }
+
+    @media (min-width: ${(props) => props.theme.breakpoints.desktopMinWidth}) {
+      display: none;
+    }
   }
 `;
 
 const HeaderComponent = () => {
+  const [isOpened, setIsOpened] = React.useState(false);
+
+  const handleClick = () => {
+    setIsOpened(!isOpened);
+  };
+
   return (
     <HeaderStyles>
       <Link to="/">
@@ -77,8 +149,11 @@ const HeaderComponent = () => {
           <span>Cat Mash</span>
         </h1>
       </Link>
-      <nav>
-        <ul className='nav-list'>
+      <nav className=''>
+        <ButtonComponent className="btn-menu" onClick={handleClick}>
+          <BurgerSvgComponent width="19" height="19" fill="#fff" />
+        </ButtonComponent>
+        <ul className={ isOpened ? 'nav-list opacity-1' : 'nav-list' }>
           <li>
             <NavLink to="/">Accueil</NavLink>
           </li>
