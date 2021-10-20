@@ -85,8 +85,9 @@ export default function VoteFormComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIdCookie(Cookies.get('isCatsSelected'));
 
-    if (!Cookies.get('pseudo') && idCookie) {
+    if (!Cookies.get('pseudo') && idCookie != undefined) {
       const inputVal = inputEl.current.value;
       const newScore = Number(await data.score) + 1;
 
