@@ -21,7 +21,7 @@ export async function fetchAPI() {
   // return data;
 
   // STRAPI
-  const url = "http://localhost:1337/images";
+  const url = "https://cats-strapi.herokuapp.com/images";
   const config = {
     method: "GET",
     headers: {
@@ -42,7 +42,8 @@ export async function fetchAPI() {
 
 export async function findOneId(id) {
   // STRAPI
-  const url = `http://localhost:1337/images/${id}`;
+  //const url = `http://localhost:1337/images/${id}`;
+  const url = `https://cats-strapi.herokuapp.com/images/${id}`;
   const config = {
     method: "GET",
     headers: {
@@ -58,7 +59,8 @@ export async function findOneId(id) {
 
 export async function modifyOneScore(id, score) {
   // STRAPI
-  const url = `http://localhost:1337/images/${id}`;
+  //const url = `http://localhost:1337/images/${id}`;
+  const url = `https://cats-strapi.herokuapp.com/images/${id}`;
   const creds = { score };
   const config = {
     method: "PUT",
