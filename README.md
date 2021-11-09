@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 github front repository: [https://github.com/phbord/cats](https://github.com/phbord/cats)
 github back repository: [https://github.com/phbord/cats-strapi](https://github.com/phbord/cats-strapi)
-website: [https://cats-flax.vercel.app/](https://cats-flax.vercel.app/)
+website: [https://cats-virid.vercel.app/](https://cats-virid.vercel.app/)
 Strapi admin : [https://cats-strapi.herokuapp.com/admin](https://cats-strapi.herokuapp.com/admin)
 
 ## Available Scripts
