@@ -3,7 +3,7 @@ import { v4 as uuid_v4 } from "uuid";
 import styled from "styled-components";
 
 import { fetchAPI } from './api/Api';
-import CardComponent from 'components/CardComponent';
+import CardToSelectComponent from 'components/CardToSelectComponent';
 import VoteFormComponent from 'components/VoteFormComponent';
 
 const HomeStyles = styled.section`
@@ -28,10 +28,10 @@ const Home = () => {
         <span className='h1-end'>pour un chat</span>
       </h1>
       <ul className='row'>{
-        images && images.data.map(image => (
+        images && images?.data?.sort((a, b) => Number(b.score) - Number(a.score)).map((image, index) => index <2 && (
           <li key={uuid_v4()} 
-              className='col-xs-12 col-sm-6 col-md-4 col-lg-3'>
-            <CardComponent image={image}/>
+              className='col-xs-12 col-sm-6'>
+            <CardToSelectComponent image={image} index={index}/>
           </li>
         ))
       }</ul>

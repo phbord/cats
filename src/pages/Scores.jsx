@@ -3,58 +3,13 @@ import { v4 as uuid_v4 } from "uuid";
 import styled from "styled-components";
 
 import { fetchAPI } from './api/Api';
+import CardComponent from 'components/CardComponent';
 
 const ScoresStyles = styled.section`
-  .scores-list {
+  li {
+    margin-bottom: ${(props) => props.theme.margins.spaceMarginY};
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    
-    li {
-      margin-right: 45px;
-      margin-bottom: 10px;
-      padding: 15px 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    span {
-      font-size: 1.2rem;
-      font-weight: 700;
-    }
-
-    figure {
-      margin: .5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .img-content {
-      width: 100px;
-      height: 100px;
-      margin-bottom: 5px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 3px solid ${(props) => props.theme.colors.pink};
-      border-radius: 50%;
-      background-color: ${(props) => props.theme.colors.dark};
-      overflow: hidden;
-    }
-
-    img {
-      max-width: 100px;
-      max-height: 100px;
-    }
-
-    figcaption {
-      color: ${(props) => props.theme.colors.pink};
-      font-size: 1.5rem;
-      font-weight: 500;
-    }
+    align-items: stretch;
   }
 `;
 
@@ -69,22 +24,14 @@ const Scores = () => {
   return (
     <ScoresStyles className='container'>
       <h1>Scores</h1>
-      <ul className="scores-list">
-        {
-          images && images.data.sort((a, b) => Number(b.score) - Number(a.score)).map((image, index) => (
-            <li key={uuid_v4()}>
-              <span>n°{++index}</span>
-              <figure>
-                <div className="img-content">
-                  <img src={image.url} 
-                        alt={image.id} />
-                </div>
-                <figcaption>{image.score} pts</figcaption>
-              </figure>
-            </li>
-          ))
-        }
-      </ul>
+      <ul className='row'>{
+        images && images?.data?.sort((a, b) => Number(b.score) - Number(a.score)).map((image, index) => (
+          <li key={uuid_v4()} 
+              className='col-xs-12 col-sm-6 col-md-4 col-lg-3'>
+            <CardComponent image={image} index={index}/>
+          </li>
+        ))
+      }</ul>
     </ScoresStyles>
   );
 };

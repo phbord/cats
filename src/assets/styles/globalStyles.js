@@ -48,4 +48,31 @@ export const GlobalStyles = createGlobalStyle`
       }
     }
   }
+  
+  .img-card {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .figcaption-card {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    padding: 10px;
+    border-radius: 2.5px;
+    background-color: rgba(219,138,169,.5);
+    color: ${(props) => props.theme.colors.light};
+    font-weight: 300;
+  }
+
+  .btn-card {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-color: ${(props) => props.theme.colors.pink};
+    opacity: 0;
+  }
 `;

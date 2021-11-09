@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import Cookies from 'js-cookie';
 import anime from "animejs";
 import styled from "styled-components";
@@ -69,46 +70,27 @@ const VoteFormStyles = styled.div`
 `;
 
 export default function VoteFormComponent() {
+  const history = useHistory();
   const inputEl = useRef(null);
-  const [idCookie, setIdCookie] = useState(Cookies.get('isCatsSelected'));
   const [data, setData] = useState({});
   const [disabled, setDisabled] = useState(true);
 
-  useEffect(() => {
-    animeUpVoteForm();
-  }, []);
-
   useEffect(async () => {
-    setData(Object.values((await findOneId(idCookie)))[0]);
+    setData(Object.values((await findOneId(Cookies.get('isCatsSelected'))))[0]);
   }, [disabled]);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIdCookie(Cookies.get('isCatsSelected'));
+    setData(await Object.values((await findOneId(Cookies.get('isCatsSelected'))))[0]);
 
-    if (!Cookies.get('pseudo') && idCookie != undefined) {
+    if (!Cookies.get('pseudo') && Cookies.get('isCatsSelected')) {
       const inputVal = inputEl.current.value;
-      const newScore = Number(await data.score) + 1;
+      const newScore = Number(await data?.score) + 1;
 
-      modifyOneScore(idCookie, newScore);
+      modifyOneScore(Cookies.get('isCatsSelected'), newScore);
       Cookies.set('pseudo', inputVal);
       animeDownVoteForm();
-    }
-  };
-
-  const animeUpVoteForm = () => {
-    if (!Cookies.get('pseudo')) {
-      const targets = document.getElementById("vote-form");
-
-      anime({
-        targets,
-        translateY: (-240 - 70),
-        opacity: [0, 1],
-        duration: 400,
-        delay: 1500,
-        easing: "easeOutQuad"
-      });
     }
   };
 
@@ -120,17 +102,20 @@ export default function VoteFormComponent() {
       translateY: (240 + 70),
       opacity: [1, 0],
       duration: 400,
+      easing: "easeOutQuad",
       delay: 400,
-      easing: "easeOutQuad"
+      complete: function() {
+        history.push('/scores');
+      }
     });
   };
 
   const handleChange = () => {
     const inputSize = inputEl.current.value.length;
 
-    if (inputSize > 1) {
+    if (inputSize > 1 && !Cookies.get('pseudo')) {
       setDisabled(false);
-    } else if (inputSize <= 1 || !inputSize) {
+    } else if (inputSize <= 1 || !inputSize || Cookies.get('pseudo')) {
       setDisabled(true);
     }
   };
