@@ -1,7 +1,8 @@
-import React, { useState, useEffect }  from 'react';
-import Cookies from 'js-cookie';
+import React, { useState, useEffect, useRef }  from 'react';
 import anime from "animejs";
 import styled from "styled-components";
+
+import { modifyOneScore } from '../pages/api/Api';
 import ButtonComponent from './ButtonComponent';
 
 const CardStyles = styled.figure`
@@ -25,48 +26,19 @@ const CardStyles = styled.figure`
   }
 `;
 
-const CardToSelectComponent = ({image}) => {
-  const [nbClick, setNbClick] = useState(0);
+const CardToSelectComponent = ({image, handleClick}) => {
+  const [imgId, setImgId] = useState('');
 
   useEffect(() => {
-    if (nbClick > 0) {
-      Cookies.set('isCatsSelected', image.id);
-      animeUpVoteForm();
-    }
-  }, [nbClick]);
-
-  const handleClick = () => {
-    setNbClick(nbClick + 1);
-  };
-
-  const animeUpVoteForm = () => {
-    if (!Cookies.get('pseudo')) {
-      const targets = document.getElementById("vote-form");
-
-      anime({
-        targets,
-        translateY: (-240 - 70),
-        opacity: [0, 1],
-        duration: 400,
-        delay: 1500,
-        easing: "easeOutQuad"
-      });
-    }
-  };
+  }, []);
 
   return (
     <CardStyles>
-      {
-        !Cookies.get('pseudo') && 
-        <ButtonComponent className='btn-card' onClick={handleClick}></ButtonComponent>
-      }
+      <ButtonComponent className='btn-card' onClick={handleClick}></ButtonComponent>
       <img src={image.url} 
            alt={image.id}
            className='img-card'/>
-      {
-        !Cookies.get('pseudo') && 
-        <figcaption className='figcaption-card'>Sélectionner</figcaption>
-      }
+      <figcaption className='figcaption-card'>Sélectionner</figcaption>
     </CardStyles>
   );
 };
